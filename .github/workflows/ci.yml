@@ -1,0 +1,29 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  typecheck-test-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Install dependencies
+        run: npm run install:all
+
+      - name: Strict TypeScript Typecheck (Server + Client)
+        run: npm run typecheck
+
+      - name: Run Integration Tests (Vitest + PostgreSQL PGlite)
+        run: npm test
+
+      - name: Production Build (Server + Client)
+        run: npm run build

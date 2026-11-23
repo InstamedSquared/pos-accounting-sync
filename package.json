@@ -1,0 +1,18 @@
+{
+  "name": "pos-accounting-sync",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Full-Stack Specialty Coffee POS, Inventory & Accounting Reconciliation System (TypeScript, React, Node.js/Express, PostgreSQL)",
+  "scripts": {
+    "install:all": "npm install && npm --prefix server install && npm --prefix client install",
+    "dev:server": "npm --prefix server run dev",
+    "dev:client": "npm --prefix client run dev",
+    "dev": "concurrently -n API,WEB -c cyan,green \"npm run dev:server\" \"npm run dev:client\"",
+    "typecheck": "npm --prefix server run typecheck && npm --prefix client run typecheck",
+    "test": "npm --prefix server test",
+    "build": "npm --prefix server run build && npm --prefix client run build"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
+}
