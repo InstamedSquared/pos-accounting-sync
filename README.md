@@ -1,5 +1,7 @@
 # RoastLedger — POS, Inventory & Accounting Sync
 
+> **Live Demo:** https://roastledger-pos-sync.onrender.com *(hosted on Render Free Tier — initial wake-up after inactivity takes ~30–50s)*
+
 A full-stack specialty coffee **Point-of-Sale (POS), Inventory, and Accounting Reconciliation** platform built with **TypeScript, React, Node.js/Express, Zod, and PostgreSQL**.
 
 Designed to run locally in **two commands with zero Docker or database installation** via embedded PostgreSQL (`@electric-sql/pglite`), while following production architecture patterns used when integrating business apps with accounting systems such as **MYOB** or **Xero**.
