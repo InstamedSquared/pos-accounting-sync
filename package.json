@@ -3,11 +3,15 @@
   "version": "1.0.0",
   "private": true,
   "description": "Full-Stack Specialty Coffee POS, Inventory & Accounting Reconciliation System (TypeScript, React, Node.js/Express, PostgreSQL)",
+  "engines": {
+    "node": ">=20.0.0"
+  },
   "scripts": {
-    "install:all": "npm install && npm --prefix server install && npm --prefix client install",
+    "install:all": "npm install --include=dev && npm --prefix server install --include=dev && npm --prefix client install --include=dev",
     "dev:server": "npm --prefix server run dev",
     "dev:client": "npm --prefix client run dev",
     "dev": "concurrently -n API,WEB -c cyan,green \"npm run dev:server\" \"npm run dev:client\"",
+    "start": "npm --prefix server run start",
     "typecheck": "npm --prefix server run typecheck && npm --prefix client run typecheck",
     "test": "npm --prefix server test",
     "build": "npm --prefix server run build && npm --prefix client run build"

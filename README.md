@@ -44,7 +44,16 @@ npm run dev
 npm run typecheck   # Strict TypeScript check (server + client)
 npm test            # 9 Vitest integration tests against real PostgreSQL (PGlite)
 npm run build       # Production build (server + client)
+npm start           # Single-service production server (serves API + React build)
 ```
+
+---
+
+## Live Cloud Deploy (One-File Render Blueprint — Free Tier)
+This repository includes a ready-to-deploy [`render.yaml`](./render.yaml) Blueprint (Singapore region, zero external DB setup required):
+1. Sign in to [Render](https://render.com) with GitHub.
+2. Click **New + → Blueprint**, select `InstamedSquared/pos-accounting-sync`, and click **Apply**.
+3. Render installs dependencies, builds both server and client, and serves the live React UI + Express API + embedded PostgreSQL on a single public HTTPS URL.
 
 ---
 

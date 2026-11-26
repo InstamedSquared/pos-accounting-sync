@@ -1,3 +1,5 @@
+import fs from "fs";
+import path from "path";
 import express, { NextFunction, Request, Response } from "express";
 import cors from "cors";
 import helmet from "helmet";
@@ -18,11 +20,21 @@ import { AppError, PosService } from "./services/posService";
 export function createApp(deps: {
   db: DbClient;
   accountingApi: MockAccountingApi;
+  staticDir?: string;
 }) {
   const app = express();
   const posService = new PosService(deps.db, deps.accountingApi);
 
-  app.use(helmet());
+  app.use(
+    helmet({
+      contentSecurityPolicy: {
+        directives: {
+          ...helmet.contentSecurityPolicy.getDefaultDirectives(),
+          "style-src": ["'self'", "'unsafe-inline'"],
+        },
+      },
+    })
+  );
   app.use(cors());
   app.use(express.json({ limit: "1mb" }));
 
@@ -224,6 +236,21 @@ export function createApp(deps: {
       next(err);
     }
   });
+
+  // Serve built React SPA when staticDir exists (single-service cloud deploy)
+  if (deps.staticDir && fs.existsSync(deps.staticDir)) {
+    const indexHtmlPath = path.join(deps.staticDir, "index.html");
+    app.use(express.static(deps.staticDir));
+    app.get("*", (req, res, next) => {
+      if (req.path.startsWith("/api")) {
+        return next();
+      }
+      if (fs.existsSync(indexHtmlPath)) {
+        return res.sendFile(indexHtmlPath);
+      }
+      return next();
+    });
+  }
 
   // Centralized typed error handler
   app.use((err: unknown, _req: Request, res: Response, _next: NextFunction) => {
